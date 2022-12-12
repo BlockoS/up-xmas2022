@@ -8,7 +8,8 @@ _8253_ch2    = $e006
 _8253_ctrl   = $e007
 
 ; Only read up, down, left, right, ctrl and shift
-keybd:
+keyboard:
+.update:
     ; key dirs are bits 2 to 5 of the 7th strobe
     ld hl, _8255_port_A
     ld (hl), 0x07
@@ -32,6 +33,6 @@ keybd:
 
     ld hl, .curr
     ld (hl), b
-    
+
 ; [todo] store trig?
     ret

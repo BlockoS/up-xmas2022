@@ -73,7 +73,7 @@ loop:
 
     call health.draw
 
-    call keybd
+    call keyboard.update
 
     ld hl, 0xd000 + 50
     ld (hl), A
@@ -124,6 +124,8 @@ main_menu:
     ldir
 
     ret
+; [todo] playfield : reserrer pour ajouter bordure et faire moins étalé
+; [todo] add git ignore
 ; [todo] rename health_bar to health
 ; [todo] select
 ; [todo] check keys
