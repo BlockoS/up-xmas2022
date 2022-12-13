@@ -71,6 +71,8 @@ main:
     ld hl, health.v1
     ld (hl), 19
 
+    ld a, 4
+    ld (enemy.id), a
     call enemy.print_name
     
     call main_menu.init
@@ -117,14 +119,14 @@ str.bleh:     defb 'It is not very effective!'
 
 names:
 .data:
-    defb 4, 'ELFO'
-    defb 5, 'ELFUM'
-    defb 6, 'ELFULK'
-    defb 7, 'RUDOLPH'
-    defb 5, 'SANTA'
+    defb 4,  'ELFO'
+    defb 5,  'ELFUM'
+    defb 6,  'ELFULK'
+    defb 5,  'SANTA'
+    defb 10, 'SANTASATAN'
 .ptr:
     defw .data,    .data+5,  .data+11
-    defw .data+18, .data+26
+    defw .data+18, .data+24
 
 include "keyboard.asm"
 include "health.asm"
