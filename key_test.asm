@@ -1,3 +1,4 @@
+; [todo] routine to clear the text area
 ; [todo] fight menu
 ; [todo] run menu
 ; [todo] item menu
@@ -116,10 +117,28 @@ enemy:
     inc hl
     ld de, 0xd000+NAME_OFFSET_0
     ldir
-
+ 
     ret
-; [todo] more
+; [todo] more ?
 .id: defb 0
+
+msg_box:
+.clear:
+    ld (@sp_save), sp
+    xor a
+    ld h, a
+    ld l, a
+    ld sp, 0xd395
+repeat 17
+    push hl
+rend
+    ld sp, 0xd3bd
+repeat 17
+    push hl
+rend
+@sp_save equ $+1
+    ld sp, 0x0000
+    ret
 
 str.a_wild:   defb 'A wild '
 str.appeared: defb 'appeared!'
