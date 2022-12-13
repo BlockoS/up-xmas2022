@@ -75,17 +75,28 @@ main:
     ld (enemy.id), a
     call enemy.print_name
     
-    call main_menu.init
-
     call health.draw
+
+    xor a
+    ld (update.callback), a
 
 loop:
     wait_vbl
 
-update equ $+1
-    call main_menu.update
+    call update
 
     jp loop
+
+update:
+.callback equ $+1
+    jr $
+    jp main_menu.init
+    jp main_menu.fight
+    jp main_menu.item
+    jp main_menu.run
+; [todo] fight
+; [todo] run
+; [todo] item
 
 enemy:
 .print_name:

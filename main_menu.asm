@@ -15,8 +15,8 @@ main_menu:
     defw .txt, .txt+6, .txt+12
 
 .init:
-    xor a
-    ld (.current), a
+    ld a, 3
+    ld (update.callback), a
 
     ld a, BUTTON
     ld (0xd000+BUTTON_FIGHT_OFFSET), a
@@ -38,13 +38,6 @@ main_menu:
 
     ret
 
-.update:
-.current equ $+1
-    jr $
-    jp .fight
-    jp .item
-    jp .run
-
 .fight:
     call keyboard.update
     and b
@@ -63,8 +56,8 @@ main_menu:
         ld a, BUTTON
         ld (0xd000+BUTTON_RUN_OFFSET), a
 
-        ld a, 6             ; [todo] defines
-        ld (main_menu.current), a
+        ld a, 9             ; [todo] defines
+        ld (update.callback), a
         ret
 @l1:
     bit 4, a
@@ -75,8 +68,8 @@ main_menu:
         ld a, BUTTON
         ld (0xd000+BUTTON_ITEM_OFFSET), a
 
-        ld a, 3             ; [todo] defines
-        ld (main_menu.current), a
+        ld a, 6             ; [todo] defines
+        ld (update.callback), a
         ret
 @l2:
     ret
@@ -99,8 +92,8 @@ main_menu.item:
         ld a, BUTTON
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
 
-        xor a
-        ld (main_menu.current), a
+        ld a, 3
+        ld (update.callback), a
         ret
 @l4:
     ret
@@ -112,7 +105,7 @@ main_menu.run:
     bit 0, a
     jp z, @l5
     ; shift : ok
-        ; [todo]
+        ; [todo] run.init
         ret
 @l5:
     bit 2, a
@@ -123,8 +116,8 @@ main_menu.run:
         ld a, BUTTON
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
 
-        xor a
-        ld (main_menu.current), a
+        ld a, 3
+        ld (update.callback), a
         ret
 @l6:
     ret
