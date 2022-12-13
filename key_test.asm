@@ -142,6 +142,9 @@ names:
 include "keyboard.asm"
 include "health.asm"
 include "main_menu.asm"
+include "fight.asm"
+include "run.asm"
+include "item.asm"
 
 playfield:
 .char:
