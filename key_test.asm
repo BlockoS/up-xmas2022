@@ -158,6 +158,7 @@ names:
     defw .data,    .data+5,  .data+11
     defw .data+18, .data+24
 
+include "random.asm"
 include "keyboard.asm"
 include "health.asm"
 include "main_menu.asm"
