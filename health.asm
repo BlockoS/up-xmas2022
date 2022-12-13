@@ -52,14 +52,14 @@ macro health_bar_impl id
     exx
     ld c, a
     ld b, 0
-    ld hl, hp.color
+    ld hl, health.color
     add hl, bc
     ld a, (hl)
     exx
     ld (hl), a
     
     exx
-    ld hl, hp.char
+    ld hl, health.char
     add hl, bc
     ld a, (hl)
     exx
@@ -84,3 +84,7 @@ health:
     health_bar_impl 0
     health_bar_impl 1
     ret
+.char:
+    defb 0x00, 0x37, 0x7b, 0x3f, 0x43
+.color:
+    defb 0x40, 0x40, 0x40, 0x04, 0x40

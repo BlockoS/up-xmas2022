@@ -28,10 +28,10 @@ keyboard:
     and 0x41
     or b                ; mix keys
     ld b, a
-.curr equ $+1
+.current equ $+1
     xor 0x00
 
-    ld hl, .curr
+    ld hl, .current
     ld (hl), b
 
 ; [todo] store trig?

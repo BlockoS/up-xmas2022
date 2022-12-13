@@ -1,3 +1,13 @@
+; [todo] fight menu
+; [todo] run menu
+; [todo] item menu
+
+; [todo] attack list
+; [todo] gameplay
+; [todo] a.i
+
+; [todo] playfield : reserrer pour ajouter bordure et faire moins étalé
+; [todo] add git ignore
 
 charset 'a','z',0x81
 charset 'A','Z',0x01
@@ -65,18 +75,13 @@ main:
     
     call main_menu.init
 
-loop:
-    ld b, 25
-@w0:
-    wait_vbl
-    djnz @w0
-
     call health.draw
 
-    call keyboard.update
+loop:
+    wait_vbl
 
-    ld hl, 0xd000 + 50
-    ld (hl), A
+update equ $+1
+    call main_menu.update
 
     jp loop
 
@@ -103,55 +108,12 @@ enemy:
 ; [todo] more
 .id: defb 0
 
-main_menu:
-.init:
-    xor a
-    ld (.current), a
-
-    ld hl, .txt+1
-    ld de, 0xd000+0x374         ; [todo] defines
-    ld bc, 5
-    ldir
-
-    inc hl
-    ld de, 0xd000+0x39c
-    ld bc, 4
-    ldir
-
-    inc hl
-    ld de, 0xd000+0x37C
-    ld bc, 3
-    ldir
-
-    ret
-; [todo] playfield : reserrer pour ajouter bordure et faire moins étalé
-; [todo] add git ignore
-; [todo] rename health_bar to health
-; [todo] select
-; [todo] check keys
-; [todo] "move" button
-
-.txt:
-    defb 5, 'FIGHT'
-    defb 4, 'ITEM'
-    defb 3, 'RUN'
-.ptr:
-    defw .txt, .txt+6, .txt+12
-.current:
-    defb 0
-
 str.a_wild:   defb 'A wild '
 str.appeared: defb 'appeared!'
 str.atk.miss: defb 'attack missed.'
 str.fainted:  defb 'fainted.'
 str.crit:     defb 'Critical hit!'
 str.bleh:     defb 'It is not very effective!'
-
-hp:
-.char:
-    defb 0x00, 0x37, 0x7b, 0x3f, 0x43
-.color:
-    defb 0x40, 0x40, 0x40, 0x04, 0x40
 
 names:
 .data:
@@ -164,15 +126,9 @@ names:
     defw .data,    .data+5,  .data+11
     defw .data+18, .data+26
 
-; [todo] attack list
-; [todo] menu system
-; [todo] inventory
-; [todo] random
-; [todo] gameplay
-; [todo] a.i
-
 include "keyboard.asm"
-include "health_bar.asm"
+include "health.asm"
+include "main_menu.asm"
 
 playfield:
 .char:
