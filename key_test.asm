@@ -1,5 +1,6 @@
+; [todo] msg_box => move to its own file
+; [todo] msg_box => make 
 ; [todo] fight menu
-; [todo] run menu
 ; [todo] item menu
 
 ; [todo] attack list
@@ -98,8 +99,8 @@ update:
 ; [todo] fight
 ; run
     jp runx.init
-    jp runx.update 
-    jp runx.wait
+    jp msg_box.print 
+    jp msg_box.wait
 ; [todo] item
 
 enemy:
@@ -126,6 +127,55 @@ enemy:
 .id: defb 0
 
 msg_box:
+.print:
+.count equ $+1
+    ld b, 0x01
+    djnz .l0
+        ld hl, (.dst)
+        ld (.cursor+2), hl
+
+        ld a, 18                    ; [todo] define (should be put first in the jump table)
+        ld (update.callback), a
+        ret
+.l0:
+        ld a, b
+        ld (.count), a
+.src equ $+1
+        ld hl, 0x0000
+        ld a, (hl)
+        inc hl
+        ld (.src), hl
+.dst equ $+1
+        ld hl, 0xd374+40
+        ld (hl), a
+        inc hl
+        ld (.dst), hl
+    ret
+
+.wait:
+    ld b, 0x01
+    djnz .l1
+
+.cursor equ $+1
+    ld a, 0x00
+    ld (0xd374+40), a
+    xor CURSOR
+    ld (.cursor), a
+
+    ld b, 10
+.l1:
+    ld a, b
+    ld (.wait+1), a
+
+    call keyboard.update
+    and b
+    rra
+    ret nc
+    ld a, 0                     ; [todo] make it configurable
+    ld (update.callback), a
+.l2:
+    ret
+
 .clear:
     ld (@sp_save), sp
     xor a
