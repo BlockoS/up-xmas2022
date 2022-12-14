@@ -18,6 +18,8 @@ main_menu:
     ld a, 3
     ld (update.callback), a
 
+    call msg_box.clear
+
     ld a, BUTTON
     ld (0xd000+BUTTON_FIGHT_OFFSET), a
 
@@ -105,7 +107,8 @@ main_menu.run:
     bit 0, a
     jp z, @l5
     ; shift : ok
-        ; [todo] run.init
+        ld a, 12
+        ld (update.callback), a
         ret
 @l5:
     bit 2, a

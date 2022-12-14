@@ -1,4 +1,3 @@
-; [todo] routine to clear the text area
 ; [todo] fight menu
 ; [todo] run menu
 ; [todo] item menu
@@ -91,12 +90,16 @@ loop:
 update:
 .callback equ $+1
     jr $
+; main menu
     jp main_menu.init
     jp main_menu.fight
     jp main_menu.item
     jp main_menu.run
 ; [todo] fight
-; [todo] run
+; run
+    jp runx.init
+    jp runx.update 
+    jp runx.wait
 ; [todo] item
 
 enemy:
@@ -104,7 +107,7 @@ enemy:
     ; get string address
     ld a, (.id)
     add a, a
-    ld c, a
+    ld c, a 
     ld b, 0
     ld hl, names.ptr
     add hl, bc
