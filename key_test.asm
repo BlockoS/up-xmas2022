@@ -9,8 +9,7 @@
 ; [todo]            => ennemy attack
 ; [todo]        => back to main menu
 ; [todo] item menu
-
-; [todo] a.i
+; [todo] move text box clear out of init callbacks and put them in the shift key handler
 
 ; [todo] bitmap display
 
@@ -113,13 +112,13 @@ update:
     jr $
     jp msg_box.print 
     jp msg_box.wait
-; [todo] next ennemy
+; [todo] next ennemy => msg [???] appeared!
 ; main menu
     jp main_menu.init
     jp main_menu.fight
     jp main_menu.item
     jp main_menu.run
-; [todo] fight
+; fight
     jp fight.init
     jp fight.item0
     jp fight.item1
