@@ -1,11 +1,18 @@
-; [todo] msg_box => move to its own file
-; [todo] msg_box => make 
-; [todo] fight menu
+; [todo] attack:
+; [todo]    => set attack id
+; [todo]    => change state
+; [todo]        => compute damage done
+; [todo]            => build message
+; [todo]        => change state
+; [todo]            => display message
+; [todo]        => change state
+; [todo]            => ennemy attack
+; [todo]        => back to main menu
 ; [todo] item menu
 
-; [todo] attack list
-; [todo] gameplay
 ; [todo] a.i
+
+; [todo] bitmap display
 
 ; [todo] playfield : reserrer pour ajouter bordure et faire moins étalé
 ; [todo] add git ignore
@@ -36,6 +43,19 @@ NAME_OFFSET_1 = 0x29b
 HP_OFFSET_1   = 0x2ef
 
 BUTTON = 0x47
+
+MSG_BOX_PRINT   = 0
+MSG_BOX_WAIT    = 3
+MAIN_MENU_INIT  = 6
+MAIN_MENU_FIGHT = 9
+MAIN_MENU_ITEM  = 12
+MAIN_MENU_RUN   = 15
+FIGHT_INIT      = 18
+FIGHT_ITEM_0    = 21
+FIGHT_ITEM_1    = 24
+FIGHT_ITEM_2    = 27
+FIGHT_ITEM_3    = 30
+RUN_INIT        = 33
 
 macro wait_vbl
     ; wait for vblank    
@@ -78,7 +98,7 @@ main:
     
     call health.draw
 
-    xor a
+    ld a, MAIN_MENU_INIT
     ld (update.callback), a
 
 loop:
@@ -91,17 +111,30 @@ loop:
 update:
 .callback equ $+1
     jr $
+    jp msg_box.print 
+    jp msg_box.wait
+; [todo] next ennemy
 ; main menu
     jp main_menu.init
     jp main_menu.fight
     jp main_menu.item
     jp main_menu.run
 ; [todo] fight
+    jp fight.init
+    jp fight.item0
+    jp fight.item1
+    jp fight.item2
+    jp fight.item3
+    ; [todo] msg + compute attack
+    ; [todo] outcome
 ; run
     jp runx.init
-    jp msg_box.print 
-    jp msg_box.wait
 ; [todo] item
+; [todo] ennemy attack
+; [todo] outcome
+; [todo] ennemy defeat
+; [todo] player defeat
+; [todo] victory
 
 enemy:
 .print_name:
@@ -126,73 +159,6 @@ enemy:
 ; [todo] more ?
 .id: defb 0
 
-msg_box:
-.print:
-.count equ $+1
-    ld b, 0x01
-    djnz .l0
-        ld hl, (.dst)
-        ld (.cursor+2), hl
-
-        ld a, 18                    ; [todo] define (should be put first in the jump table)
-        ld (update.callback), a
-        ret
-.l0:
-        ld a, b
-        ld (.count), a
-.src equ $+1
-        ld hl, 0x0000
-        ld a, (hl)
-        inc hl
-        ld (.src), hl
-.dst equ $+1
-        ld hl, 0xd374+40
-        ld (hl), a
-        inc hl
-        ld (.dst), hl
-    ret
-
-.wait:
-    ld b, 0x01
-    djnz .l1
-
-.cursor equ $+1
-    ld a, 0x00
-    ld (0xd374+40), a
-    xor CURSOR
-    ld (.cursor), a
-
-    ld b, 10
-.l1:
-    ld a, b
-    ld (.wait+1), a
-
-    call keyboard.update
-    and b
-    rra
-    ret nc
-    ld a, 0                     ; [todo] make it configurable
-    ld (update.callback), a
-.l2:
-    ret
-
-.clear:
-    ld (@sp_save), sp
-    xor a
-    ld h, a
-    ld l, a
-    ld sp, 0xd395
-repeat 17
-    push hl
-rend
-    ld sp, 0xd3bd
-repeat 17
-    push hl
-rend
-@sp_save equ $+1
-    ld sp, 0x0000
-    ret
-
 str.a_wild:   defb 'A wild '
 str.appeared: defb 'appeared!'
 str.atk.miss: defb 'attack missed.'
@@ -213,6 +179,7 @@ names:
 
 include "random.asm"
 include "keyboard.asm"
+include "msg_box.asm"
 include "health.asm"
 include "main_menu.asm"
 include "fight.asm"

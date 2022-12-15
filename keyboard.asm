@@ -29,7 +29,7 @@ keyboard:
     or b                ; mix keys
     ld b, a
 .current equ $+1
-    xor 0x00
+    xor 0xff
 
     ld hl, .current
     ld (hl), b

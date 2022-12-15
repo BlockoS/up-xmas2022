@@ -1,5 +1,3 @@
-CURSOR = 0xc0
-
 runx:
 .str:
     defb 26, 'You have nowhere to hide.'
@@ -29,7 +27,11 @@ runx:
     ld hl, 0xd374
     ld (msg_box.dst), hl
 
-    ld a, 15
+    ld a, MSG_BOX_PRINT
     ld (update.callback), a
-    ret
 
+    ; [todo] set msg.wait exit point => trigger ennemy attack
+    ld a, MAIN_MENU_INIT
+    ld (msg_box.next_state), a
+
+    ret

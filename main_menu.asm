@@ -15,9 +15,6 @@ main_menu:
     defw .txt, .txt+6, .txt+12
 
 .init:
-    ld a, 3
-    ld (update.callback), a
-
     call msg_box.clear
 
     ld a, BUTTON
@@ -38,8 +35,11 @@ main_menu:
     ld bc, 3
     ldir
 
+    ld a, MAIN_MENU_FIGHT
+    ld (update.callback), a
+    
     ret
-
+    
 .fight:
     call keyboard.update
     and b
@@ -47,7 +47,8 @@ main_menu:
     bit 0, a
     jp z, @l0
     ; shift : ok
-        ; [todo]
+        ld a, FIGHT_INIT
+        ld (update.callback), a
         ret
 @l0:
     bit 3, a
@@ -58,7 +59,7 @@ main_menu:
         ld a, BUTTON
         ld (0xd000+BUTTON_RUN_OFFSET), a
 
-        ld a, 9             ; [todo] defines
+        ld a, MAIN_MENU_RUN
         ld (update.callback), a
         ret
 @l1:
@@ -70,7 +71,7 @@ main_menu:
         ld a, BUTTON
         ld (0xd000+BUTTON_ITEM_OFFSET), a
 
-        ld a, 6             ; [todo] defines
+        ld a, MAIN_MENU_ITEM
         ld (update.callback), a
         ret
 @l2:
@@ -94,7 +95,7 @@ main_menu.item:
         ld a, BUTTON
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
 
-        ld a, 3
+        ld a, MAIN_MENU_FIGHT
         ld (update.callback), a
         ret
 @l4:
@@ -107,7 +108,7 @@ main_menu.run:
     bit 0, a
     jp z, @l5
     ; shift : ok
-        ld a, 12
+        ld a, RUN_INIT
         ld (update.callback), a
         ret
 @l5:
@@ -119,7 +120,7 @@ main_menu.run:
         ld a, BUTTON
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
 
-        ld a, 3
+        ld a, MAIN_MENU_FIGHT
         ld (update.callback), a
         ret
 @l6:
