@@ -1,6 +1,7 @@
 CURSOR = 0xc0
 
 msg_box:
+.buffer: defs 64
 .print:
 .count equ $+1
     ld b, 0x01
@@ -50,7 +51,7 @@ msg_box:
     ld (update.callback), a
 .l2:
     ret
-
+   
 .clear:
     ld (@sp_save), sp
     xor a

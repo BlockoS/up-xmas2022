@@ -45,14 +45,14 @@ main_menu:
     and b
 
     bit 0, a
-    jp z, @l0
+    jp z, .l0
     ; shift : ok
         ld a, FIGHT_INIT
         ld (update.callback), a
         ret
-@l0:
+.l0:
     bit 3, a
-    jp z, @l1
+    jp z, .l1
     ; right : run
         xor a
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
@@ -62,9 +62,9 @@ main_menu:
         ld a, MAIN_MENU_RUN
         ld (update.callback), a
         ret
-@l1:
+.l1:
     bit 4, a
-    jp z, @l2
+    jp z, .l2
     ; down : item
         xor a
         ld (0xd000+BUTTON_FIGHT_OFFSET), a
@@ -74,7 +74,7 @@ main_menu:
         ld a, MAIN_MENU_ITEM
         ld (update.callback), a
         ret
-@l2:
+.l2:
     ret
 
 main_menu.item:

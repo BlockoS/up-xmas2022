@@ -1,13 +1,6 @@
-; [todo] attack:
-; [todo]    => set attack id
-; [todo]    => change state
-; [todo]        => compute damage done
-; [todo]            => build message
-; [todo]        => change state
-; [todo]            => display message
-; [todo]        => change state
-; [todo]            => ennemy attack
-; [todo]        => back to main menu
+; [todo] msg buffer print (line jump)
+; [todo] enemy load
+; [todo] enemy attack
 ; [todo] item menu
 ; [todo] move text box clear out of init callbacks and put them in the shift key handler
 
@@ -54,7 +47,8 @@ FIGHT_ITEM_0    = 21
 FIGHT_ITEM_1    = 24
 FIGHT_ITEM_2    = 27
 FIGHT_ITEM_3    = 30
-RUN_INIT        = 33
+FITH_COMPUTE_0  = 33
+RUN_INIT        = 36
 
 macro wait_vbl
     ; wait for vblank    
@@ -85,18 +79,10 @@ main:
     ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
     ldir
 
-    ld hl, health.v0
-    ld (hl), 25
-
-    ld hl, health.v1
-    ld (hl), 19
-
     ld a, 4
     ld (enemy.id), a
     call enemy.print_name
     
-    call health.draw
-
     ld a, MAIN_MENU_INIT
     ld (update.callback), a
 
@@ -124,8 +110,7 @@ update:
     jp fight.item1
     jp fight.item2
     jp fight.item3
-    ; [todo] msg + compute attack
-    ; [todo] outcome
+    jp fight.compute
 ; run
     jp runx.init
 ; [todo] item
@@ -134,6 +119,29 @@ update:
 ; [todo] ennemy defeat
 ; [todo] player defeat
 ; [todo] victory
+
+; [todo]
+; b atk
+; c def
+damage:
+.compute:
+    call random
+    and 3
+    ld e, a
+    ld a, b
+    add a, a
+    add a, a
+    add a, a
+    add a, e
+    rra
+    rra
+    rra
+    and 0x1f
+    sub c
+    jp nc, .l1
+        xor a
+.l1:
+    ret
 
 enemy:
 .print_name:
@@ -156,13 +164,20 @@ enemy:
  
     ret
 ; [todo] more ?
+.hp: defb 31
+.atk: defb 0
+.def: defb 0
 .id: defb 0
+
+kevin.hp: defb 31
+kevin.def = 4
+
+str.kevin: defb 'KEVIN'
+str.used:  defb ' used '
 
 str.a_wild:   defb 'A wild '
 str.appeared: defb 'appeared!'
-str.atk.miss: defb 'attack missed.'
 str.fainted:  defb 'fainted.'
-str.crit:     defb 'Critical hit!'
 str.bleh:     defb 'It is not very effective!'
 
 names:

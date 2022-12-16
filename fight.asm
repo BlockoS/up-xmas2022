@@ -8,6 +8,10 @@ BUTTON_FIGHT_ITEM_1_OFFSET = FIGHT_ITEM_1_OFFSET - 1
 BUTTON_FIGHT_ITEM_2_OFFSET = FIGHT_ITEM_2_OFFSET - 1
 BUTTON_FIGHT_ITEM_3_OFFSET = FIGHT_ITEM_3_OFFSET - 1
 
+macro fight.msg0 id 
+
+mend
+
 fight:
 .str:
 .str0: defb 9,  'MALMO HUG'
@@ -55,7 +59,34 @@ fight:
     bit 0, a
     jp z, .l0
     ; shift : ok
-        ; [todo]
+        call msg_box.clear
+
+        ; [todo] move to a new state if timing is too tight?
+        ld hl, str.kevin
+        ld de, msg_box.buffer
+        ld bc, 11
+        ldir
+
+        ld hl, .str0+1
+        ld bc, 10
+        ldir
+
+        ld a, 21
+        ld (msg_box.count), a
+        ld hl, msg_box.buffer
+        ld (msg_box.src), hl
+        ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+        ld (msg_box.dst), hl
+
+        ld a, 0
+        ld (.move), a
+
+        ld a, FITH_COMPUTE_0
+        ld (msg_box.next_state), a
+
+        ld a, MSG_BOX_PRINT
+        ld (update.callback), a
+
         ret
 .l0:
     bit 6, a
@@ -97,7 +128,34 @@ fight:
     bit 0, a
     jp z, .l4
     ; shift : ok
-        ; [todo]
+        call msg_box.clear
+
+        ; [todo] move to a new state if timing is too tight?
+        ld hl, str.kevin
+        ld de, msg_box.buffer
+        ld bc, 11
+        ldir
+
+        ld hl, .str1+1
+        ld bc, 11
+        ldir
+
+        ld a, 22
+        ld (msg_box.count), a
+        ld hl, msg_box.buffer
+        ld (msg_box.src), hl
+        ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+        ld (msg_box.dst), hl
+
+        ld a, 1
+        ld (.move), a
+
+        ld a, FITH_COMPUTE_0
+        ld (msg_box.next_state), a
+
+        ld a, MSG_BOX_PRINT
+        ld (update.callback), a
+
         ret
 .l4:
     bit 6, a
@@ -139,7 +197,33 @@ fight:
     bit 0, a
     jp z, .l8
     ; shift : ok
-        ; [todo]
+        call msg_box.clear
+
+        ; [todo] move to a new state if timing is too tight?
+        ld hl, str.kevin
+        ld de, msg_box.buffer
+        ld bc, 11
+        ldir
+
+        ld hl, .str2+1
+        ld bc, 12
+        ldir
+
+        ld a, 23
+        ld (msg_box.count), a
+        ld hl, msg_box.buffer
+        ld (msg_box.src), hl
+        ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+        ld (msg_box.dst), hl
+
+        ld a, 2
+        ld (.move), a
+
+        ld a, FITH_COMPUTE_0
+        ld (msg_box.next_state), a
+
+        ld a, MSG_BOX_PRINT
+        ld (update.callback), a
         ret
 .l8:
     bit 6, a
@@ -181,7 +265,33 @@ fight:
     bit 0, a
     jp z, .l12
     ; shift : ok
-        ; [todo]
+        call msg_box.clear
+
+        ; [todo] move to a new state if timing is too tight?
+        ld hl, str.kevin
+        ld de, msg_box.buffer
+        ld bc, 11
+        ldir
+
+        ld hl, .str3+1
+        ld bc, 10
+        ldir
+
+        ld a, 21
+        ld (msg_box.count), a
+        ld hl, msg_box.buffer
+        ld (msg_box.src), hl
+        ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+        ld (msg_box.dst), hl
+
+        ld a, 3
+        ld (.move), a
+
+        ld a, FITH_COMPUTE_0
+        ld (msg_box.next_state), a
+
+        ld a, MSG_BOX_PRINT
+        ld (update.callback), a
         ret
 .l12:
     bit 6, a
@@ -215,3 +325,29 @@ fight:
         ld (update.callback), a
 .l15:
     ret 
+
+.compute:
+.move equ $+1
+    ld bc, 0x0000
+    ld hl, .atk
+    ld b, (hl)
+    ld hl, enemy.def
+    ld c, (hl)
+    call damage.compute
+    ld b, a
+    ld a, (enemy.hp)
+    cp b
+    jp nc, .l16
+        ld a, b
+.l16:
+    sub b
+    ld (enemy.hp), a
+    ld hl, 0xd800+HP_OFFSET_0
+    ld e, (HP_OFFSET_0+7) & 0xff
+    call health.draw
+
+    ld a, MAIN_MENU_INIT
+    ld (update.callback), a
+    ret
+
+.atk: defb 3,7,9,11
