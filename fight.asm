@@ -81,7 +81,7 @@ fight:
         ld a, 0
         ld (.move), a
 
-        ld a, FITH_COMPUTE_0
+        ld a, FIGHT_COMPUTE_0
         ld (msg_box.next_state), a
 
         ld a, MSG_BOX_PRINT
@@ -150,7 +150,7 @@ fight:
         ld a, 1
         ld (.move), a
 
-        ld a, FITH_COMPUTE_0
+        ld a, FIGHT_COMPUTE_0
         ld (msg_box.next_state), a
 
         ld a, MSG_BOX_PRINT
@@ -219,7 +219,7 @@ fight:
         ld a, 2
         ld (.move), a
 
-        ld a, FITH_COMPUTE_0
+        ld a, FIGHT_COMPUTE_0
         ld (msg_box.next_state), a
 
         ld a, MSG_BOX_PRINT
@@ -287,7 +287,7 @@ fight:
         ld a, 3
         ld (.move), a
 
-        ld a, FITH_COMPUTE_0
+        ld a, FIGHT_COMPUTE_0
         ld (msg_box.next_state), a
 
         ld a, MSG_BOX_PRINT
@@ -330,6 +330,7 @@ fight:
 .move equ $+1
     ld bc, 0x0000
     ld hl, .atk
+    add hl, bc
     ld b, (hl)
     ld hl, enemy.def
     ld c, (hl)
@@ -346,8 +347,8 @@ fight:
     ld e, (HP_OFFSET_0+7) & 0xff
     call health.draw
 
-    ld a, MAIN_MENU_INIT
+    ld a, ENEMY_ATTACK
     ld (update.callback), a
     ret
 
-.atk: defb 3,7,9,11
+.atk: defb 2,3,5,7

@@ -21,9 +21,15 @@ msg_box:
         inc hl
         ld (.src), hl
 .dst equ $+1
-        ld hl, 0xd374+40
+        ld hl, 0xd374
         ld (hl), a
         inc hl
+        ld a, 0x93              ; here we consider that the text will allways be 2 lines tall
+        cp l    
+        jp nc, .store
+            ld hl, 0xd39c
+            add hl, bc
+.store:
         ld (.dst), hl
     ret
 

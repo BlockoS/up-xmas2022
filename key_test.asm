@@ -1,6 +1,6 @@
-; [todo] msg buffer print (line jump)
-; [todo] enemy load
-; [todo] enemy attack
+; [todo] critical hit msg
+; [todo] faint + load next
+; [todo] game over
 ; [todo] item menu
 ; [todo] move text box clear out of init callbacks and put them in the shift key handler
 
@@ -32,7 +32,7 @@ NAME_OFFSET_0 = 0x029
 HP_OFFSET_0   = 0x07c
 
 NAME_OFFSET_1 = 0x29b
-HP_OFFSET_1   = 0x2ef
+HP_OFFSET_1   = 0x2ee
 
 BUTTON = 0x47
 
@@ -47,8 +47,10 @@ FIGHT_ITEM_0    = 21
 FIGHT_ITEM_1    = 24
 FIGHT_ITEM_2    = 27
 FIGHT_ITEM_3    = 30
-FITH_COMPUTE_0  = 33
-RUN_INIT        = 36
+FIGHT_COMPUTE_0 = 33
+ENEMY_ATTACK    = 36
+ENEMY_COMPUTE   = 39
+RUN_INIT        = 42
 
 macro wait_vbl
     ; wait for vblank    
@@ -79,9 +81,8 @@ main:
     ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
     ldir
 
-    ld a, 4
-    ld (enemy.id), a
-    call enemy.print_name
+    ld a, 0
+    call enemy.load
     
     ld a, MAIN_MENU_INIT
     ld (update.callback), a
@@ -111,6 +112,8 @@ update:
     jp fight.item2
     jp fight.item3
     jp fight.compute
+    jp enemy.attack
+    jp enemy.compute
 ; run
     jp runx.init
 ; [todo] item
@@ -143,53 +146,14 @@ damage:
 .l1:
     ret
 
-enemy:
-.print_name:
-    ; get string address
-    ld a, (.id)
-    add a, a
-    ld c, a 
-    ld b, 0
-    ld hl, names.ptr
-    add hl, bc
-    ld e, (hl)
-    inc hl
-    ld d, (hl)
-
-    ex de, hl
-    ld c, (hl)
-    inc hl
-    ld de, 0xd000+NAME_OFFSET_0
-    ldir
- 
-    ret
-; [todo] more ?
-.hp: defb 31
-.atk: defb 0
-.def: defb 0
-.id: defb 0
-
 kevin.hp: defb 31
 kevin.def = 4
 
 str.kevin: defb 'KEVIN'
 str.used:  defb ' used '
 
-str.a_wild:   defb 'A wild '
-str.appeared: defb 'appeared!'
 str.fainted:  defb 'fainted.'
 str.bleh:     defb 'It is not very effective!'
-
-names:
-.data:
-    defb 4,  'ELFO'
-    defb 5,  'ELFUM'
-    defb 6,  'ELFULK'
-    defb 5,  'SANTA'
-    defb 10, 'SANTASATAN'
-.ptr:
-    defw .data,    .data+5,  .data+11
-    defw .data+18, .data+24
 
 include "random.asm"
 include "keyboard.asm"
@@ -199,6 +163,7 @@ include "main_menu.asm"
 include "fight.asm"
 include "run.asm"
 include "item.asm"
+include "enemy.asm"
 
 playfield:
 .char:
