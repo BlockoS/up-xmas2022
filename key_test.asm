@@ -50,7 +50,9 @@ FIGHT_ITEM_3    = 30
 FIGHT_COMPUTE_0 = 33
 ENEMY_ATTACK    = 36
 ENEMY_COMPUTE   = 39
-RUN_INIT        = 42
+ENEMY_FAINTED   = 42
+ENEMY_NEXT      = 45
+RUN_INIT        = 48
 
 macro wait_vbl
     ; wait for vblank    
@@ -112,16 +114,17 @@ update:
     jp fight.item2
     jp fight.item3
     jp fight.compute
+; enemy
     jp enemy.attack
     jp enemy.compute
+    jp enemy.fainted
+    jp enemy.next
 ; run
     jp runx.init
 ; [todo] item
-; [todo] ennemy attack
-; [todo] outcome
 ; [todo] ennemy defeat
 ; [todo] player defeat
-; [todo] victory
+; [todo] final victory
 
 ; [todo]
 ; b atk
@@ -135,24 +138,24 @@ damage:
     add a, a
     add a, a
     add a, a
-    add a, e
+    add a, e 
     rra
     rra
     rra
     and 0x1f
-    sub c
+    sub c           ; dmg = max(0, (atk*8 + random%4) / 8 - def)
     jp nc, .l1
         xor a
 .l1:
     ret
 
 kevin.hp: defb 31
-kevin.def = 4
+kevin.def = 3
 
 str.kevin: defb 'KEVIN'
 str.used:  defb ' used '
 
-str.fainted:  defb 'fainted.'
+str.fainted:  defb ' fainted.'
 str.bleh:     defb 'It is not very effective!'
 
 include "random.asm"

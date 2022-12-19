@@ -111,6 +111,53 @@ enemy:
     ld (update.callback), a
     ret
 
+.fainted:
+    call msg_box.clear
+    
+    ld hl, (.self)
+    ld c, (hl)
+    inc hl
+    xor a
+    ld b, a
+    ld de, msg_box.buffer
+    ldir
+
+    ld hl, str.fainted
+    ld c, 9
+    ldir
+
+    ld a, e
+    sbc a, msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
+
+    ld a, ENEMY_NEXT
+    ld (msg_box.next_state), a
+
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
+    ret
+
+.next:
+    ld a, (.id)
+    inc a
+    call .load
+
+    ld a, (.hp)
+    ld hl, 0xd800+HP_OFFSET_0
+    ld e, (HP_OFFSET_0+7) & 0xff
+    call health.draw
+
+; [todo] xxx appeared
+
+    ld a, MAIN_MENU_INIT
+    ld (update.callback), a
+
+    ret
+
 .id: defb 0
 .hp: defb 31
 .def: defb 0

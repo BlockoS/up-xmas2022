@@ -30,8 +30,7 @@ runx:
     ld a, MSG_BOX_PRINT
     ld (update.callback), a
 
-    ; [todo] set msg.wait exit point => trigger ennemy attack
-    ld a, MAIN_MENU_INIT
+    ld a, ENEMY_ATTACK
     ld (msg_box.next_state), a
 
     ret

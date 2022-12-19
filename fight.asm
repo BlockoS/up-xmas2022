@@ -343,10 +343,18 @@ fight:
 .l16:
     sub b
     ld (enemy.hp), a
+
     ld hl, 0xd800+HP_OFFSET_0
     ld e, (HP_OFFSET_0+7) & 0xff
     call health.draw
 
+    ld a, (enemy.hp)
+    cp 0
+    jp nz, .l17
+        ld a, ENEMY_FAINTED
+        ld (update.callback), a
+        ret
+.l17:
     ld a, ENEMY_ATTACK
     ld (update.callback), a
     ret
