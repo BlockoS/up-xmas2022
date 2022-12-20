@@ -1,12 +1,9 @@
-; [todo] critical hit msg
-; [todo] faint + load next
-; [todo] game over
 ; [todo] item menu
-; [todo] move text box clear out of init callbacks and put them in the shift key handler
+; [todo] critical hit msg
+; [todo] game over
 
 ; [todo] bitmap display
 
-; [todo] playfield : reserrer pour ajouter bordure et faire moins étalé
 ; [todo] add git ignore
 
 charset 'a','z',0x81
@@ -33,6 +30,7 @@ HP_OFFSET_0   = 0x07c
 
 NAME_OFFSET_1 = 0x29b
 HP_OFFSET_1   = 0x2ee
+MP_OFFSET_1   = 0x2c6
 
 BUTTON = 0x47
 
@@ -53,6 +51,11 @@ ENEMY_COMPUTE   = 39
 ENEMY_FAINTED   = 42
 ENEMY_NEXT      = 45
 RUN_INIT        = 48
+ITEMS_INIT      = 51
+ITEMS_0         = 54
+ITEMS_1         = 57
+ITEMS_USE_0     = 60
+ITEMS_USE_1     = 63
 
 macro wait_vbl
     ; wait for vblank    
@@ -83,10 +86,10 @@ main:
     ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
     ldir
 
-    ld a, 0
-    call enemy.load
+    ld a, 0xff
+    ld (enemy.id), a
     
-    ld a, MAIN_MENU_INIT
+    ld a, ENEMY_NEXT
     ld (update.callback), a
 
 loop:
@@ -121,8 +124,12 @@ update:
     jp enemy.next
 ; run
     jp runx.init
-; [todo] item
-; [todo] ennemy defeat
+; item
+    jp items.init
+    jp items.item0
+    jp items.item1
+    jp items.hp
+    jp items.mp
 ; [todo] player defeat
 ; [todo] final victory
 
@@ -150,12 +157,14 @@ damage:
     ret
 
 kevin.hp: defb 31
+kevin.mp: defb 31
 kevin.def = 3
 
 str.kevin: defb 'KEVIN'
 str.used:  defb ' used '
 
 str.fainted:  defb ' fainted.'
+str.appeared: defb ' appeared.'
 str.bleh:     defb 'It is not very effective!'
 
 include "random.asm"

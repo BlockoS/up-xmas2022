@@ -84,7 +84,8 @@ main_menu.item:
     bit 0, a
     jp z, @l3
     ; shift : ok
-        ; [todo]
+        ld a, ITEMS_INIT
+        ld (update.callback), a
         ret
 @l3:
     bit 5, a

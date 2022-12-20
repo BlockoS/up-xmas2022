@@ -142,20 +142,43 @@ enemy:
     ret
 
 .next:
-    ld a, (.id)
+    ld a, (.id)                     ; load next enemey
     inc a
     call .load
 
-    ld a, (.hp)
+    ld a, (.hp)                     ; reset health
     ld hl, 0xd800+HP_OFFSET_0
     ld e, (HP_OFFSET_0+7) & 0xff
     call health.draw
 
-; [todo] xxx appeared
+    call msg_box.clear              ; display msg
+    
+    ld hl, (.self)
+    ld c, (hl)
+    inc hl
+    xor a
+    ld b, a
+    ld de, msg_box.buffer
+    ldir
+
+    ld hl, str.appeared
+    ld c, 10
+    ldir
+
+    ld a, e
+    sbc a, msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
 
     ld a, MAIN_MENU_INIT
-    ld (update.callback), a
+    ld (msg_box.next_state), a
 
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
+    
     ret
 
 .id: defb 0
@@ -181,7 +204,7 @@ elfulk:
 .def: defb 2
 .atk: defb 5, 6, 7
 .ptr: defw .atk0, .atk1, .atk2
-.name: defb 7, 'ELFULK'
+.name: defb 6, 'ELFULK'
 .atk0: defb 11, 'TOY HAMMER'
 .atk1: defb 15, 'EGGNOG SPLASH'
 .atk2: defb 15, 'LAPLAND SUPLEX'
@@ -190,7 +213,7 @@ santa:
 .def: defb 3
 .atk: defb 5, 6, 8
 .ptr: defw .atk0, .atk1, .atk2
-.name: defb 6, 'SANTA'
+.name: defb 6, 'SANTA '
 .atk0: defb 13, 'SUCKER PUNCH'
 .atk1: defb 14, 'CHIMNEY STOMP'
 .atk2: defb 13, 'PILLOW CHOKE'
@@ -199,7 +222,7 @@ santasatan:
 .def: defb 5
 .atk: defb 7, 9, 11
 .ptr: defw .atk0, .atk1, .atk2
-.name: defb 11, 'SANTASATAN'
+.name: defb 10, 'SANTASATAN'
 .atk0: defb 18, 'MISSING BATTERIES'
 .atk1: defb 14, 'OVERSIZED BOX'
 .atk2: defb 13, 'PLASTIC JUNK'
