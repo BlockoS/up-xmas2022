@@ -16,11 +16,11 @@ fight:
 .str0: defb 9,  'MALMO HUG'
 .str1: defb 10, 'TAZER BEAM'
 .str2: defb 11, 'FIRE BREATH'
-.str3: defb 9,  'ACID PUKE'
+.str3: defb 10, 'ACID VOMIT'
 .ptr:
     defw .str0, .str1, .str2, .str3
 
-.atk: defb 2,3,5,7
+.atk: defb 4,5,7,9
 
 .init:
     call msg_box.clear                  ; [todo] move to main_menu key press
@@ -45,7 +45,7 @@ fight:
 
     inc hl
     ld de, 0xd000+FIGHT_ITEM_3_OFFSET
-    ld bc, 9
+    ld bc, 10
     ldir
 
     ld a, FIGHT_ITEM_0
@@ -303,10 +303,10 @@ fight:
         ldir
 
         ld hl, .str3+1
-        ld bc, 10
+        ld bc, 11
         ldir
 
-        ld a, 21
+        ld a, 22
         ld (msg_box.count), a
         ld hl, msg_box.buffer
         ld (msg_box.src), hl
@@ -416,7 +416,7 @@ fight:
     ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
     ld (msg_box.dst), hl
 
-    ld a, MAIN_MENU_INIT                ; [todo]
+    ld a, MAIN_MENU_INIT                ; [todo] game over screen
     ld (msg_box.next_state), a
 
     ld a, MSG_BOX_PRINT
@@ -429,7 +429,7 @@ fight:
     ; [todo] move to a new state if timing is too tight?
     ld hl, str.kevin
     ld de, msg_box.buffer
-    ld bc, 11
+    ld bc, 5
     ldir
 
     ld hl, str.oomp

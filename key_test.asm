@@ -1,7 +1,9 @@
+; [todo] bitmap display
+; [todo]        => setup bitmap and copy attr
+; [todo] kevin => sharpscii
 ; [todo] game over
 ; [todo] success screen
 
-; [todo] bitmap display
 
 charset 'a','z',0x81
 charset 'A','Z',0x01
@@ -89,9 +91,18 @@ main:
     ld a, ENEMY_NEXT
     ld (update.callback), a
 
-loop:
-    wait_vbl
+    ; [todo] ptr list in enemy.load
+    ld hl, elfo.txt
+    ld (display_bitmap.src), hl  
 
+    ld hl, elfo.att
+    ld (display_attr.src), hl
+   
+    call display_attr
+
+loop:
+    ;wait_vbl
+    call display_bitmap
     call update
 
     jp loop
@@ -171,9 +182,16 @@ include "fight.asm"
 include "run.asm"
 include "item.asm"
 include "enemy.asm"
+include "bitmap.asm"
 
 playfield:
 .char:
 incbin "data/playfield/ScreenCharacterData_Layer 0_Frame_1.bin"
 .color:
 incbin "data/playfield/ScreenColorData_Layer 0_Frame_1.bin"
+
+elfo.txt:
+incbin "./out/elfo_txt.bin"
+
+elfo.att:
+incbin "./out/elfo_att.bin"

@@ -8,15 +8,23 @@ BIN_NAME = UP-22
 CCFLAGS = -W -Wall
 RASMFLAGS =
 
-ALL = key_test.bin key_test.m12
+ALL = convert key_test.bin key_test.m12
 
 all: $(ALL)
+
+convert: tools/convert.c
+	@$(ECHO) "CC    $@"
+	@$(CC) $(CCFLAGS) -o $@ $^
 
 bin2m12: tools/bin2m12.c
 	@$(ECHO) "CC    $@"
 	@$(CC) $(CCFLAGS) -o $@ $^
 
-%.bin: %.asm
+bitmap.data:
+	@$(ECHO) "GEN	BITMAP"
+	@./convert ./data/elfo.png ./out/elfo 2> /dev/null
+
+%.bin: %.asm bitmap.data
 	@$(ECHO) "RASM	$@"
 	@$(RASM) $(RASMFLAGS) $< -o $(basename $@)
 

@@ -9,10 +9,10 @@ BUTTON_RUN_OFFSET   = RUN_OFFSET-1
 main_menu:
 .txt:
     defb 5, 'FIGHT'
-    defb 4, 'ITEM'
+    defb 5, 'ITEMS'
     defb 3, 'RUN'
 .ptr:
-    defw .txt, .txt+6, .txt+12
+    defw .txt, .txt+6, .txt+13
 
 .init:
     call msg_box.clear
@@ -27,7 +27,7 @@ main_menu:
 
     inc hl
     ld de, 0xd000+ITEM_OFFSET
-    ld bc, 4
+    ld bc, 5
     ldir
 
     inc hl

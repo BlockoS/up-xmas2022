@@ -1,28 +1,50 @@
 macro raster_update    
-    ld sp, ix
-    pop bc
-    pop de
-    pop hl
-    exx
-    pop bc
-    pop de
-    pop hl
+    ld sp, ix               ; 10
+    pop bc                  ; 10
+    pop de                  ; 10
+    pop hl                  ; 10
+    exx                     ; 4
+    pop bc                  ; 10
+    pop de                  ; 10
+    pop hl                  ; 10
     
-    ld sp, iy
-    push hl
-    push de
-    push bc
-    exx
-    push hl
-    push de
-    push bc
+    ld sp, iy               ; 10
+    push hl                 ; 11
+    push de                 ; 11
+    push bc                 ; 11
+    exx                     ; 4
+    push hl                 ; 11
+    push de                 ; 11
+    push bc                 ; 11
     
-    ld bc, 12
-    add ix, bc
-mend
+    ld bc, 12               ; 10
+    add ix, bc              ; 15
+mend                        ; = 179
+
+display_attr:
+    ld (@sp_save3), sp
+
+    ld iy, 0xd800+39
+display_attr.src equ $+2
+    ld ix, 0x0000
+
+    ld a, 11
+.draw_attributes:
+    raster_update   
+
+    ld  c, 40
+    add iy, bc
+
+	dec a
+	jp nz, .draw_attributes
+
+@sp_save3 equ $+1
+    ld sp, 0x0000
+
+    ret
 
 display_bitmap:
-    ld (@sp_save), sp
+    ld (@sp_save2), sp
 
 @run:
     ld hl, vblnk
@@ -36,8 +58,8 @@ display_bitmap:
 
     xor a
 @loop:
-    ld iy, 0xd000+27            ; [todo] position
-.bmp0 equ $+2                   ; [todo] addr of the 1st bitmap
+    ld iy, 0xd000+39
+display_bitmap.src equ $+2
     ld ix, 0x0000
 
     raster_update
@@ -74,36 +96,7 @@ display_bitmap:
 	dec a
 	jp nz, @line00
 
-    ld iy, 0x0000               ; [todo] deplacer la destination
-.bmp1 equ $+2                   ; [todo] addr of the 2nd bitmap
-    ld ix, 0x0000
-    
-    ld a, 10
-
-@line10:
-    raster_update
-@line11:
-    raster_update
-@line12:
-    raster_update
-@line13:
-    raster_update
-@line14:
-    raster_update
-@line15:
-    raster_update
-@line16:
-    raster_update
-@line17:
-    raster_update   
-
-    ld  c, 40
-    add iy, bc                  ; next line
-
-	dec a
-	jp nz, @line10
-
-@sp_save equ $+1
+@sp_save2 equ $+1
     ld sp, 0x0000
 
     ret
