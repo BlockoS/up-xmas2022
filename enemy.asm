@@ -105,6 +105,7 @@ enemy:
     ld (kevin.hp), a
     ld hl, 0xd800+HP_OFFSET_1
     ld e, (HP_OFFSET_1+7) & 0xff
+    ld b, HP_COLOR
     call health.draw
 
     ld a, MAIN_MENU_INIT
@@ -149,6 +150,7 @@ enemy:
     ld a, (.hp)                     ; reset health
     ld hl, 0xd800+HP_OFFSET_0
     ld e, (HP_OFFSET_0+7) & 0xff
+    ld b, HP_COLOR
     call health.draw
 
     call msg_box.clear              ; display msg

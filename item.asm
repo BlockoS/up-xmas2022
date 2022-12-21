@@ -167,6 +167,7 @@ items:
 
     ld hl, 0xd800+HP_OFFSET_1
     ld e, (HP_OFFSET_1+7) & 0xff
+    ld b, HP_COLOR
     call health.draw
 
     ld a, MAIN_MENU_INIT
@@ -194,6 +195,7 @@ items:
 
     ld hl, 0xd800+MP_OFFSET_1
     ld e, (MP_OFFSET_1+7) & 0xff
+    ld b, MP_COLOR
     call health.draw
 
     ld a, MAIN_MENU_INIT

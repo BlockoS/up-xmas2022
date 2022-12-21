@@ -342,6 +342,7 @@ fight:
 
     ld hl, 0xd800+HP_OFFSET_0
     ld e, (HP_OFFSET_0+7) & 0xff
+    ld b, HP_COLOR
     call health.draw
 
     ld a, (enemy.hp)

@@ -1,10 +1,12 @@
-; [todo] item menu
-; [todo] critical hit msg
+; [todo] MP:
+; [todo]     * health bar color
+; [todo]     * decrease on move 3 and 4
+; [todo]     * if mp == 0 => display message "Kevin is out of MP."
 ; [todo] game over
+; [todo] success screen
 
 ; [todo] bitmap display
 
-; [todo] add git ignore
 
 charset 'a','z',0x81
 charset 'A','Z',0x01
@@ -104,7 +106,6 @@ update:
     jr $
     jp msg_box.print 
     jp msg_box.wait
-; [todo] next ennemy => msg [???] appeared!
 ; main menu
     jp main_menu.init
     jp main_menu.fight
@@ -162,10 +163,9 @@ kevin.def = 3
 
 str.kevin: defb 'KEVIN'
 str.used:  defb ' used '
-
+str.oomp:  defb ' is out of MP.'
 str.fainted:  defb ' fainted.'
 str.appeared: defb ' appeared.'
-str.bleh:     defb 'It is not very effective!'
 
 include "random.asm"
 include "keyboard.asm"
