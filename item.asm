@@ -170,7 +170,7 @@ items:
     ld b, HP_COLOR
     call health.draw
 
-    ld a, MAIN_MENU_INIT
+    ld a, ENEMY_ATTACK
     ld (update.callback), a
 
     ret
@@ -198,7 +198,7 @@ items:
     ld b, MP_COLOR
     call health.draw
 
-    ld a, MAIN_MENU_INIT
+    ld a, ENEMY_ATTACK
     ld (update.callback), a
 
     ret

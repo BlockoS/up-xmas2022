@@ -8,6 +8,9 @@ BUTTON_FIGHT_ITEM_1_OFFSET = FIGHT_ITEM_1_OFFSET - 1
 BUTTON_FIGHT_ITEM_2_OFFSET = FIGHT_ITEM_2_OFFSET - 1
 BUTTON_FIGHT_ITEM_3_OFFSET = FIGHT_ITEM_3_OFFSET - 1
 
+ITEM2_MP = 4
+ITEM3_MP = 6
+
 fight:
 .str:
 .str0: defb 9,  'MALMO HUG'
@@ -16,6 +19,8 @@ fight:
 .str3: defb 9,  'ACID PUKE'
 .ptr:
     defw .str0, .str1, .str2, .str3
+
+.atk: defb 2,3,5,7
 
 .init:
     call msg_box.clear                  ; [todo] move to main_menu key press
@@ -193,6 +198,20 @@ fight:
     bit 0, a
     jp z, .l8
     ; shift : ok
+        ld hl, kevin.mp
+        ld a, (hl)
+        ld b, ITEM2_MP
+        cp b
+        jp c, .oomp
+
+        sub b
+        ld (hl), a
+
+        ld hl, 0xd800+MP_OFFSET_1
+        ld e, (MP_OFFSET_1+7) & 0xff
+        ld b, MP_COLOR
+        call health.draw
+
         call msg_box.clear
 
         ; [todo] move to a new state if timing is too tight?
@@ -261,6 +280,20 @@ fight:
     bit 0, a
     jp z, .l12
     ; shift : ok
+        ld hl, kevin.mp
+        ld a, (hl)
+        ld b, ITEM3_MP
+        cp b
+        jp c, .oomp
+
+        sub b
+        ld (hl), a
+
+        ld hl, 0xd800+MP_OFFSET_1
+        ld e, (MP_OFFSET_1+7) & 0xff
+        ld b, MP_COLOR
+        call health.draw
+
         call msg_box.clear
 
         ; [todo] move to a new state if timing is too tight?
@@ -356,4 +389,65 @@ fight:
     ld (update.callback), a
     ret
 
-.atk: defb 2,3,5,7
+.fainted:
+    xor a
+    ld (kevin.hp), a
+    ld hl, 0xd800+HP_OFFSET_1
+    ld e, (HP_OFFSET_1+7) & 0xff
+    ld b, HP_COLOR
+    call health.draw
+
+    call msg_box.clear
+    
+    ld hl, str.kevin
+    ld de, msg_box.buffer
+    ld bc, 5
+    ldir
+
+    ld hl, str.fainted
+    ld c, 9
+    ldir
+
+    ld a, e
+    sbc a, msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
+
+    ld a, MAIN_MENU_INIT                ; [todo]
+    ld (msg_box.next_state), a
+
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
+    ret
+
+.oomp:
+    call msg_box.clear
+
+    ; [todo] move to a new state if timing is too tight?
+    ld hl, str.kevin
+    ld de, msg_box.buffer
+    ld bc, 11
+    ldir
+
+    ld hl, str.oomp
+    ld bc, 14
+    ldir
+
+    ld a, e
+    sub msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
+
+    ld a, MAIN_MENU_INIT
+    ld (msg_box.next_state), a
+
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
+
+    ret

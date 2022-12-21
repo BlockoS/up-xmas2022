@@ -1,12 +1,7 @@
-; [todo] MP:
-; [todo]     * health bar color
-; [todo]     * decrease on move 3 and 4
-; [todo]     * if mp == 0 => display message "Kevin is out of MP."
 ; [todo] game over
 ; [todo] success screen
 
 ; [todo] bitmap display
-
 
 charset 'a','z',0x81
 charset 'A','Z',0x01

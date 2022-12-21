@@ -92,25 +92,23 @@ enemy:
     ld hl, .atk
     add hl, bc
     ld b, (hl)
-    ;ld hl, kevin.def
     ld c, kevin.def
     call damage.compute
     ld b, a
     ld a, (kevin.hp)
     cp b
-    jp nc, .l1
-        ld a, b
-.l1:
-    sub b
-    ld (kevin.hp), a
-    ld hl, 0xd800+HP_OFFSET_1
-    ld e, (HP_OFFSET_1+7) & 0xff
-    ld b, HP_COLOR
-    call health.draw
+    jp c, fight.fainted
+        sub b
+       
+        ld (kevin.hp), a
+        ld hl, 0xd800+HP_OFFSET_1
+        ld e, (HP_OFFSET_1+7) & 0xff
+        ld b, HP_COLOR
+        call health.draw
 
-    ld a, MAIN_MENU_INIT
-    ld (update.callback), a
-    ret
+        ld a, MAIN_MENU_INIT
+        ld (update.callback), a
+        ret
 
 .fainted:
     call msg_box.clear
