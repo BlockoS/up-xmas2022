@@ -91,13 +91,12 @@ main:
     ld a, ENEMY_NEXT
     ld (update.callback), a
 
-    ; [todo] ptr list in enemy.load
-    ld hl, elfo.txt
-    ld (display_bitmap.src), hl  
-
     ld hl, elfo.att
     ld (display_attr.src), hl
    
+    ld hl, elfo.txt
+    ld (display_bitmap.src), hl  
+    
     call display_attr
 
 loop:
@@ -189,9 +188,3 @@ playfield:
 incbin "data/playfield/ScreenCharacterData_Layer 0_Frame_1.bin"
 .color:
 incbin "data/playfield/ScreenColorData_Layer 0_Frame_1.bin"
-
-elfo.txt:
-incbin "./out/elfo_txt.bin"
-
-elfo.att:
-incbin "./out/elfo_att.bin"

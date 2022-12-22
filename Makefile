@@ -22,7 +22,10 @@ bin2m12: tools/bin2m12.c
 
 bitmap.data:
 	@$(ECHO) "GEN	BITMAP"
-	@./convert ./data/elfo.png ./out/elfo 2> /dev/null
+	@./convert ./data/elfo.png ./out/elfo > /dev/null
+	@./convert ./data/elfulk.png ./out/elfulk > /dev/null
+	@./convert ./data/santa.png ./out/santa > /dev/null
+	@./convert ./data/santasatan.png ./out/santasatan > /dev/null
 
 %.bin: %.asm bitmap.data
 	@$(ECHO) "RASM	$@"

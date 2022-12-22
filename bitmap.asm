@@ -70,7 +70,7 @@ display_bitmap.src equ $+2
     cp (hl)
     jp nc, @wait2
 
-    ld a, 10                    ; [todo] define
+    ld a, 11                    ; [todo] define
     jp @line01
     
 @line00:

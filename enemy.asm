@@ -30,6 +30,11 @@ enemy:
     ld de, 0xd000+NAME_OFFSET_0
     ldir
  
+    ld (display_attr.src), hl
+    call display_attr
+  
+    ld (display_bitmap.src), ix
+ 
     ret
 
 .attack:
@@ -196,6 +201,8 @@ elfo:
 .atk: defb 4, 5, 6
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 4, 'ELFO'
+.att: incbin "./out/elfo_att.bin"
+.txt: incbin "./out/elfo_txt.bin"
 .atk0: defb 6, 'STONE'
 .atk1: defb 11, 'CANDY CANE'
 .atk2: defb 11, 'BROKEN TOY'
@@ -205,6 +212,8 @@ elfulk:
 .atk: defb 5, 6, 7
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 6, 'ELFULK'
+.att: incbin "./out/elfulk_att.bin"
+.txt: incbin "./out/elfulk_txt.bin"
 .atk0: defb 11, 'TOY HAMMER'
 .atk1: defb 15, 'EGGNOG SPLASH'
 .atk2: defb 15, 'LAPLAND SUPLEX'
@@ -214,6 +223,8 @@ santa:
 .atk: defb 5, 6, 8
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 6, 'SANTA '
+.att: incbin "./out/santa_att.bin"
+.txt: incbin "./out/santa_txt.bin"
 .atk0: defb 13, 'SUCKER PUNCH'
 .atk1: defb 14, 'CHIMNEY STOMP'
 .atk2: defb 13, 'PILLOW CHOKE'
@@ -223,6 +234,8 @@ santasatan:
 .atk: defb 7, 9, 11
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 10, 'SANTASATAN'
+.att: incbin "./out/santasatan_att.bin"
+.txt: incbin "./out/santasatan_txt.bin"
 .atk0: defb 18, 'MISSING BATTERIES'
 .atk1: defb 14, 'OVERSIZED BOX'
 .atk2: defb 13, 'PLASTIC JUNK'
