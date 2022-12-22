@@ -39,7 +39,8 @@ items:
     jp z, .l0
     ; shift : ok
         ld a, (.count)
-        jp z, .l2
+        cp 0
+        jp z, .outofgreenbull
 
         call msg_box.clear
 
@@ -86,7 +87,38 @@ items:
  
         ld a, ITEMS_1
         ld (update.callback), a
+
 .l2:
+    ret
+.outofgreenbull:
+    call msg_box.clear
+
+    ld hl, str.kevin
+    ld de, msg_box.buffer
+    ld bc, 5
+    ldir
+
+    ld hl, str.oomp
+    ld bc, 11
+    ldir
+
+    ld hl, .str0+1
+    ld bc, 11
+    ldir
+
+    ld a, e
+    sbc a, msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
+
+    ld a, ENEMY_ATTACK
+    ld (msg_box.next_state), a
+
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
     ret
 
 .item1:
@@ -97,7 +129,8 @@ items:
     jp z, .l3
     ; shift : ok
         ld a, (.count+1)
-        jp z, .l5
+        cp 0
+        jp z, .outofchocopoop
 
         call msg_box.clear
 
@@ -145,6 +178,36 @@ items:
         ld a, ITEMS_0
         ld (update.callback), a
 .l5:
+    ret
+.outofchocopoop:
+    call msg_box.clear
+
+    ld hl, str.kevin
+    ld de, msg_box.buffer
+    ld bc, 5
+    ldir
+
+    ld hl, str.oomp
+    ld bc, 11
+    ldir
+
+    ld hl, .str1+1
+    ld bc, 10
+    ldir
+
+    ld a, e
+    sbc a, msg_box.buffer & 0xff
+    ld (msg_box.count), a
+    ld hl, msg_box.buffer
+    ld (msg_box.src), hl
+    ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
+    ld (msg_box.dst), hl
+
+    ld a, ENEMY_ATTACK
+    ld (msg_box.next_state), a
+
+    ld a, MSG_BOX_PRINT
+    ld (update.callback), a
     ret
 
 .hp:
@@ -203,5 +266,5 @@ items:
 
     ret
 
-.count: defb 5, 5
-.stat:  defb 7, 7
+.count: defb 8, 8
+.stat:  defb 10, 10
