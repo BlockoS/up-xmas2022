@@ -1,5 +1,5 @@
+; [todo] add music
 ; [todo] success screen
-
 
 charset 'a','z',0x81
 charset 'A','Z',0x01
@@ -147,7 +147,13 @@ start:
     ld (hl), a
     inc hl
     ld (hl), a
-    
+
+    ld a, 8
+    ld hl, items.count
+    ld (hl), a
+    inc hl
+    ld (hl), a
+
     ; copy playfield
     ld hl, playfield.char
     ld de, 0xd000
