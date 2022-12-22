@@ -416,7 +416,7 @@ fight:
     ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
     ld (msg_box.dst), hl
 
-    ld a, MAIN_MENU_INIT                ; [todo] game over screen
+    ld a, GAMEOVER_RUN
     ld (msg_box.next_state), a
 
     ld a, MSG_BOX_PRINT

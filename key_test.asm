@@ -1,7 +1,3 @@
-; [todo] bitmap display
-; [todo]        => setup bitmap and copy attr
-; [todo] kevin => sharpscii
-; [todo] game over
 ; [todo] success screen
 
 
@@ -55,6 +51,7 @@ ITEMS_0         = 54
 ITEMS_1         = 57
 ITEMS_USE_0     = 60
 ITEMS_USE_1     = 63
+GAMEOVER_RUN    = 66
 
 macro wait_vbl
     ; wait for vblank    
@@ -74,31 +71,7 @@ main:
 	di
 	im 1
 
-    ; copy playfield
-    ld hl, playfield.char
-    ld de, 0xd000
-    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
-    ldir
-
-    ld hl, playfield.color
-    ld de, 0xd800
-    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
-    ldir
-
-    ld a, 0xff
-    ld (enemy.id), a
-    
-    ld a, ENEMY_NEXT
-    ld (update.callback), a
-
-    ld hl, elfo.att
-    ld (display_attr.src), hl
-   
-    ld hl, elfo.txt
-    ld (display_bitmap.src), hl  
-    
-    call display_attr
-
+    call start
 loop:
     ;wait_vbl
     call display_bitmap
@@ -136,10 +109,71 @@ update:
     jp items.item1
     jp items.hp
     jp items.mp
-; [todo] player defeat
-; [todo] final victory
+; gameover
+    jp gameover.run
+; success
 
-; [todo]
+gameover:
+.char:  incbin "data/gameover/ScreenCharacterData_Layer 0_Frame_1.bin"
+.color: incbin "data/gameover/ScreenColorData_Layer 0_Frame_1.bin"
+.run:
+    ld hl, gameover.char
+    ld de, 0xd000
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    ld hl, gameover.color
+    ld de, 0xd800
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+.loop:
+    wait_vbl
+    
+    call keyboard.update
+    and b
+
+    bit 0, a
+    jp nz, .end
+
+    jp .loop
+.end:
+    ld a, MAIN_MENU_INIT
+    ld (update.callback), a
+
+start:
+    ld a, 31
+    ld hl, kevin.hp
+    ld (hl), a
+    inc hl
+    ld (hl), a
+    
+    ; copy playfield
+    ld hl, playfield.char
+    ld de, 0xd000
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    ld hl, playfield.color
+    ld de, 0xd800
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    ld a, 0xff
+    ld (enemy.id), a
+    
+    ld a, ENEMY_NEXT
+    ld (update.callback), a
+
+    ld hl, elfo.att
+    ld (display_attr.src), hl
+   
+    ld hl, elfo.txt
+    ld (display_bitmap.src), hl  
+    
+    call display_attr
+    ret
+
 ; b atk
 ; c def
 damage:
