@@ -20,13 +20,13 @@
 
 # Merry Xmas 2022! (Sharp MZ-700)
 
-Oh crap! A gateway to hell just opened near the christmas tree.
+* Oh crap! A gateway to hell just opened near the christmas tree.
 Kevin will have to kick some butts if he wants to have his gits!  
 
-Keys: 
-    left/right/up/down : navigate through menu
-    shift: OK
-    ctrl: Cancel
+* Keys: 
+  * left/right/up/down : navigate through menu
+  * shift: OK
+  *  ctrl: Cancel
 
-Music by Glafouk/Flush
-Code and Gfx by Mooz/Up Rough
+* Music by Glafouk/Flush
+* Code and Gfx by Mooz/Up Rough
