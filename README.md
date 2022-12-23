@@ -1,2 +1,32 @@
-# up-xmas2022
-A small Sharp MZ 700 xmas intro/game for 2022.
+```
+	___________________._   F   L   U   S   H    ___________________._
+   _\\_____      \      |/       ______._       _\\_____      \      |/
+  |      |/      /      |       |      |/      |      |/      /      |   sns
+  |      /      /|      |_______|      |_______|      /      /|      |________
+  |      \_______//     /     __//     /     __//_____\_______//     /     __//
+  |      ____\   |      \      \|      \      \|      \      \|      \      \
+  |      |       |      |\      \      |\      \      |\      \      |\      \
+  |______| n f o |______________/______________/______________/______|/______/
+
+                             .___            ._______
+             ._______      __|_ /____      __|_     /     .____.
+          ___|_     /_____/_ _/     /_    /   /    /_.    |    |_____
+         _)   /    //  _   / \       /.__/_  /    / _|____|_   |    (_
+         \   /    //   \  /___\_____/_|_   \______\ \_     /   _     /
+     - --/________\     _/-diP-----/   /    /--_/    /    /____\_____\-->>>
+                 /______\      _ _/        /   \__________\
+                             \ \)\_________\ 
+```
+
+# Merry Xmas 2022! (Sharp MZ-700)
+
+Oh crap! A gateway to hell just opened near the christmas tree.
+Kevin will have to kick some butts if he wants to have his gits!  
+
+Keys: 
+    left/right/up/down : navigate through menu
+    shift: OK
+    ctrl: Cancel
+
+Music by Glafouk/Flush
+Code and Gfx by Mooz/Up Rough
