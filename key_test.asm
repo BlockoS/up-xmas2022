@@ -1,6 +1,3 @@
-; [todo] add music
-; [todo] success screen
-
 charset 'a','z',0x81
 charset 'A','Z',0x01
 charset '0','9',0x20
@@ -75,13 +72,16 @@ main:
 	ld hl, 0xe008           ; sound off
 	ld (hl), 0x00
 
+    call intro.run
+
     call start
 
 loop:
     ;wait_vbl
     call display_bitmap
+    call PLY_LW_Play
     call update
-
+    
     jp loop
 
 update:
@@ -176,12 +176,12 @@ gameover:
 
     jp .loop
 
+.end:
     call PLY_LW_Stop
     
     ld hl, 0xe008           ; sound off
 	ld (hl), 0x00
 
-.end:
     ld a, MAIN_MENU_INIT
     ld (update.callback), a
 
@@ -192,7 +192,7 @@ start:
     inc hl
     ld (hl), a
 
-    ld a, 8
+    ld a, 9
     ld hl, items.count
     ld (hl), a
     inc hl
@@ -222,6 +222,14 @@ start:
     ld (display_bitmap.src), hl  
     
     call display_attr
+
+    ld hl, 0xe008           ; sound on
+	ld (hl), 0x01
+
+    ld hl, intro_song
+    xor a
+    call PLY_LW_Init
+
     ret
 
 ; b atk
@@ -267,6 +275,47 @@ include "item.asm"
 include "enemy.asm"
 include "bitmap.asm"
 
+intro:
+.char:  incbin "data/intro/ScreenCharacterData_Layer 0_Frame_1.bin"
+.color: incbin "data/intro/ScreenColorData_Layer 0_Frame_1.bin"
+.run:
+    ld hl, .char
+    ld de, 0xd000
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    ld hl, .color
+    ld de, 0xd800
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+	ld hl, 0xe008           ; sound on
+	ld (hl), 0x01
+
+    ld hl, intro_song
+    xor a
+    call PLY_LW_Init
+
+.loop:
+    wait_vbl
+
+    call PLY_LW_Play
+
+    call keyboard.update
+    and b
+
+    bit 0, a
+    jp nz, .end
+
+    jp .loop
+
+.end:
+    call PLY_LW_Stop
+
+    ld hl, 0xe008           ; sound off
+	ld (hl), 0x00
+    ret
+
 playfield:
 .char:
 incbin "data/playfield/ScreenCharacterData_Layer 0_Frame_1.bin"
@@ -281,5 +330,7 @@ gameover_song:
 include "data/gameover_song.asm"
 success_song:
 include "data/success_song.asm"
+intro_song:
+include "data/intro_screen.asm"
 include "arkos/PlayerLightweight_SHARPMZ700.asm"
 

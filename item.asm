@@ -266,5 +266,5 @@ items:
 
     ret
 
-.count: defb 8, 8
-.stat:  defb 10, 10
+.count: defb 9, 9
+.stat:  defb 12, 12

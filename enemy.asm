@@ -204,7 +204,7 @@ enemy:
 ENEMY_COUNT =  4
 
 elfo:
-.def: defb 1
+.def: defb 0
 .atk: defb 4, 5, 6
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 4, 'ELFO'
@@ -215,19 +215,19 @@ elfo:
 .atk2: defb 11, 'BROKEN TOY'
 
 elfulk:
-.def: defb 2
+.def: defb 1
 .atk: defb 5, 6, 7
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 6, 'ELFULK'
 .att: incbin "./out/elfulk_att.bin"
 .txt: incbin "./out/elfulk_txt.bin"
 .atk0: defb 11, 'TOY HAMMER'
-.atk1: defb 15, 'EGGNOG SPLASH'
+.atk1: defb 14, 'EGGNOG SPLASH'
 .atk2: defb 15, 'LAPLAND SUPLEX'
 
 santa:
-.def: defb 3
-.atk: defb 5, 6, 8
+.def: defb 2
+.atk: defb 6, 7, 8
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 6, 'SANTA '
 .att: incbin "./out/santa_att.bin"
@@ -237,8 +237,8 @@ santa:
 .atk2: defb 13, 'PILLOW CHOKE'
 
 santasatan:
-.def: defb 5
-.atk: defb 7, 9, 11
+.def: defb 4
+.atk: defb 7, 8, 9
 .ptr: defw .atk0, .atk1, .atk2
 .name: defb 10, 'SANTASATAN'
 .att: incbin "./out/santasatan_att.bin"
