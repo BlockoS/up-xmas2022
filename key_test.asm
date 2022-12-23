@@ -72,7 +72,11 @@ main:
 	di
 	im 1
 
+	ld hl, 0xe008           ; sound off
+	ld (hl), 0x00
+
     call start
+
 loop:
     ;wait_vbl
     call display_bitmap
@@ -129,6 +133,13 @@ success:
     ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
     ldir
 
+	ld hl, 0xe008           ; sound on
+	ld (hl), 0x01
+
+    ld hl, success_song
+    xor a
+    call PLY_LW_Init
+
     jp gameover.loop
 
 gameover:
@@ -145,9 +156,18 @@ gameover:
     ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
     ldir
 
+	ld hl, 0xe008           ; sound on
+	ld (hl), 0x01
+
+    ld hl, gameover_song
+    xor a
+    call PLY_LW_Init
+
 .loop:
     wait_vbl
-    
+
+    call PLY_LW_Play
+
     call keyboard.update
     and b
 
@@ -155,6 +175,12 @@ gameover:
     jp nz, .end
 
     jp .loop
+
+    call PLY_LW_Stop
+    
+    ld hl, 0xe008           ; sound off
+	ld (hl), 0x00
+
 .end:
     ld a, MAIN_MENU_INIT
     ld (update.callback), a
@@ -246,3 +272,14 @@ playfield:
 incbin "data/playfield/ScreenCharacterData_Layer 0_Frame_1.bin"
 .color:
 incbin "data/playfield/ScreenColorData_Layer 0_Frame_1.bin"
+
+PLY_CFG_ConfigurationIsPresent = 1
+PLY_CFG_NoSoftNoHard = 1
+PLY_CFG_SoftOnly = 1
+PLY_CFG_SoftOnly_SoftwareArpeggio = 1
+gameover_song: 
+include "data/gameover_song.asm"
+success_song:
+include "data/success_song.asm"
+include "arkos/PlayerLightweight_SHARPMZ700.asm"
+
