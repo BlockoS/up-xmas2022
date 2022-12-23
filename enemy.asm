@@ -138,11 +138,18 @@ enemy:
     ld hl, 0xd000+FIGHT_ITEM_0_OFFSET
     ld (msg_box.dst), hl
 
-    ld a, ENEMY_NEXT
-    ld (msg_box.next_state), a
-
     ld a, MSG_BOX_PRINT
     ld (update.callback), a
+
+    ld a, (.id)
+    cp ENEMY_COUNT-1
+    jp nz, .l1
+        ld a, SUCCESS_RUN
+        ld (msg_box.next_state), a
+        ret
+.l1:
+    ld a, ENEMY_NEXT
+    ld (msg_box.next_state), a
     ret
 
 .next:

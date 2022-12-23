@@ -52,6 +52,7 @@ ITEMS_1         = 57
 ITEMS_USE_0     = 60
 ITEMS_USE_1     = 63
 GAMEOVER_RUN    = 66
+SUCCESS_RUN     = 69
 
 macro wait_vbl
     ; wait for vblank    
@@ -112,6 +113,23 @@ update:
 ; gameover
     jp gameover.run
 ; success
+    jp success.run
+
+success:
+.char:  incbin "data/success/ScreenCharacterData_Layer 0_Frame_1.bin"
+.color: incbin "data/success/ScreenColorData_Layer 0_Frame_1.bin"
+.run:
+    ld hl, success.char
+    ld de, 0xd000
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    ld hl, success.color
+    ld de, 0xd800
+    ld bc, SCREEN_WIDTH*SCREEN_HEIGHT
+    ldir
+
+    jp gameover.loop
 
 gameover:
 .char:  incbin "data/gameover/ScreenCharacterData_Layer 0_Frame_1.bin"
