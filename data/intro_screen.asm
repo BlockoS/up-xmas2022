@@ -61,6 +61,8 @@ intro_screen_FmInstrument1
 
 	db 61	; Volume: 15.
 
+	db 61	; Volume: 15.
+
 	db 4	; End the instrument.
 intro_screen_DisarkPointerRegionStart9
 	dw intro_screen_FmInstrument0Loop	; Loop to silence.
@@ -116,26 +118,25 @@ intro_screen_Subsong0
 
 ; The Linker.
 ; Pattern 0
+intro_screen_Subsong0loop
 	db 5	; State byte.
-	db 31	; New height.
+	db 63	; New height.
 intro_screen_Subsong0DisarkPointerRegionStart1
-	dw intro_screen_Subsong0_Track9, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
+	dw intro_screen_Subsong0_Track0, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
 intro_screen_Subsong0DisarkPointerRegionEnd1
 ; The tracks.
 
 ; Pattern 1
-intro_screen_Subsong0loop
-	db 5	; State byte.
-	db 63	; New height.
+	db 1	; State byte.
 intro_screen_Subsong0DisarkPointerRegionStart2
-	dw intro_screen_Subsong0_Track0, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
+	dw intro_screen_Subsong0_Track2, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
 intro_screen_Subsong0DisarkPointerRegionEnd2
 ; The tracks.
 
 ; Pattern 2
 	db 1	; State byte.
 intro_screen_Subsong0DisarkPointerRegionStart3
-	dw intro_screen_Subsong0_Track2, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
+	dw intro_screen_Subsong0_Track0, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
 intro_screen_Subsong0DisarkPointerRegionEnd3
 ; The tracks.
 
@@ -149,124 +150,95 @@ intro_screen_Subsong0DisarkPointerRegionEnd4
 ; Pattern 4
 	db 1	; State byte.
 intro_screen_Subsong0DisarkPointerRegionStart5
-	dw intro_screen_Subsong0_Track4, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
+	dw intro_screen_Subsong0_Track0, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
 intro_screen_Subsong0DisarkPointerRegionEnd5
 ; The tracks.
 
-; Pattern 5
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart6
-	dw intro_screen_Subsong0_Track5, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd6
-; The tracks.
-
-; Pattern 6
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart7
-	dw intro_screen_Subsong0_Track6, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd7
-; The tracks.
-
-; Pattern 7
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart8
-	dw intro_screen_Subsong0_Track7, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd8
-; The tracks.
-
-; Pattern 8
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart9
-	dw intro_screen_Subsong0_Track8, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd9
-; The tracks.
-
-; Pattern 9
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart10
-	dw intro_screen_Subsong0_Track10, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd10
-; The tracks.
-
-; Pattern 10
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart11
-	dw intro_screen_Subsong0_Track11, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd11
-; The tracks.
-
-; Pattern 11
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart12
-	dw intro_screen_Subsong0_Track12, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd12
-; The tracks.
-
-; Pattern 12
-	db 1	; State byte.
-intro_screen_Subsong0DisarkPointerRegionStart13
-	dw intro_screen_Subsong0_Track13, intro_screen_Subsong0_Track1, intro_screen_Subsong0_Track1
-intro_screen_Subsong0DisarkPointerRegionEnd13
-; The tracks.
-
 	db 0	; End of the subsong.
-intro_screen_Subsong0DisarkPointerRegionStart14
+intro_screen_Subsong0DisarkPointerRegionStart6
 	dw intro_screen_Subsong0loop
-intro_screen_Subsong0DisarkPointerRegionEnd14
+intro_screen_Subsong0DisarkPointerRegionEnd6
 
 ; The Tracks.
 intro_screen_Subsong0_Track0
 	db 191, 21	; Escaped note: 21.
 	db 2	; New instrument: 1.
+	db 173	; Note: 69.
+	db 6	; New instrument: 3.
 	db 62	; Short wait: 1.
 
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
+	db 40	; Note: 64.
 	db 62	; Short wait: 1.
 
-	db 63, 19	; Escaped note: 19.
-	db 61, 4	; Long wait: 5.
-
-	db 63, 19	; Escaped note: 19.
-	db 190	; Short wait: 3.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 190	; Short wait: 3.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
+	db 43	; Note: 67.
 	db 191, 21	; Escaped note: 21.
 	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 
-	db 0	; Note: 24.
+	db 135	; Note: 31.
+	db 4	; New instrument: 2.
+	db 62	; Short wait: 1.
+
+	db 140	; Note: 36.
+	db 2	; New instrument: 1.
+	db 62	; Short wait: 1.
+
+	db 11	; Note: 35.
+	db 62	; Short wait: 1.
+
+	db 168	; Note: 64.
+	db 6	; New instrument: 3.
+	db 62	; Short wait: 1.
+
+	db 137	; Note: 33.
+	db 2	; New instrument: 1.
+	db 62	; Short wait: 1.
+
+	db 168	; Note: 64.
+	db 6	; New instrument: 3.
+	db 62	; Short wait: 1.
+
+	db 40	; Note: 64.
+	db 40	; Note: 64.
+	db 62	; Short wait: 1.
+
+	db 40	; Note: 64.
+	db 135	; Note: 31.
+	db 4	; New instrument: 2.
+	db 62	; Short wait: 1.
+
+	db 171	; Note: 67.
+	db 6	; New instrument: 3.
+	db 62	; Short wait: 1.
+
+	db 132	; Note: 28.
+	db 2	; New instrument: 1.
+	db 62	; Short wait: 1.
+
+	db 191, 72	; Escaped note: 72.
+	db 6	; New instrument: 3.
+	db 62	; Short wait: 1.
+
+	db 191, 21	; Escaped note: 21.
+	db 2	; New instrument: 1.
 	db 61, 4	; Long wait: 5.
 
-	db 0	; Note: 24.
+	db 63, 21	; Escaped note: 21.
+	db 62	; Short wait: 1.
+
+	db 135	; Note: 31.
+	db 4	; New instrument: 2.
+	db 62	; Short wait: 1.
+
+	db 128	; Note: 24.
+	db 2	; New instrument: 1.
+	db 62	; Short wait: 1.
+
+	db 2	; Note: 26.
 	db 190	; Short wait: 3.
+
+	db 63, 21	; Escaped note: 21.
+	db 61, 6	; Long wait: 7.
 
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
@@ -288,41 +260,24 @@ intro_screen_Subsong0_Track1
 intro_screen_Subsong0_Track2
 	db 191, 21	; Escaped note: 21.
 	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
+	db 61, 4	; Long wait: 5.
 
 	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 61, 4	; Long wait: 5.
-
-	db 63, 19	; Escaped note: 19.
-	db 190	; Short wait: 3.
 
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
 	db 62	; Short wait: 1.
 
-	db 7	; Note: 31.
+	db 140	; Note: 36.
+	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
+	db 11	; Note: 35.
 	db 190	; Short wait: 3.
 
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
+	db 9	; Note: 33.
+	db 61, 6	; Long wait: 7.
 
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
@@ -330,12 +285,29 @@ intro_screen_Subsong0_Track2
 
 	db 191, 21	; Escaped note: 21.
 	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
+	db 190	; Short wait: 3.
 
-	db 63, 16	; Escaped note: 16.
+	db 2	; Note: 26.
 	db 61, 4	; Long wait: 5.
 
-	db 63, 16	; Escaped note: 16.
+	db 2	; Note: 26.
+	db 62	; Short wait: 1.
+
+	db 135	; Note: 31.
+	db 4	; New instrument: 2.
+	db 62	; Short wait: 1.
+
+	db 128	; Note: 24.
+	db 2	; New instrument: 1.
+	db 62	; Short wait: 1.
+
+	db 2	; Note: 26.
+	db 190	; Short wait: 3.
+
+	db 4	; Note: 28.
+	db 190	; Short wait: 3.
+
+	db 0	; Note: 24.
 	db 62	; Short wait: 1.
 
 	db 63, 19	; Escaped note: 19.
@@ -345,7 +317,7 @@ intro_screen_Subsong0_Track2
 	db 4	; New instrument: 2.
 	db 190	; Short wait: 3.
 
-	db 191, 20	; Escaped note: 20.
+	db 128	; Note: 24.
 	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 
@@ -357,55 +329,24 @@ intro_screen_Subsong0_Track2
 intro_screen_Subsong0_Track3
 	db 191, 21	; Escaped note: 21.
 	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
+	db 61, 4	; Long wait: 5.
 
 	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 61, 4	; Long wait: 5.
-
-	db 63, 19	; Escaped note: 19.
-	db 190	; Short wait: 3.
 
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
 	db 62	; Short wait: 1.
 
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 190	; Short wait: 3.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
-	db 191, 21	; Escaped note: 21.
+	db 140	; Note: 36.
 	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 
-	db 2	; Note: 26.
-	db 61, 4	; Long wait: 5.
-
-	db 4	; Note: 28.
+	db 11	; Note: 35.
 	db 190	; Short wait: 3.
+
+	db 9	; Note: 33.
+	db 61, 6	; Long wait: 7.
 
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
@@ -413,1044 +354,39 @@ intro_screen_Subsong0_Track3
 
 	db 128	; Note: 24.
 	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track4
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
 	db 190	; Short wait: 3.
 
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 61, 4	; Long wait: 5.
-
-	db 63, 19	; Escaped note: 19.
-	db 190	; Short wait: 3.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 190	; Short wait: 3.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 61, 4	; Long wait: 5.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 190	; Short wait: 3.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
+	db 2	; Note: 26.
 	db 61, 4	; Long wait: 5.
 
 	db 2	; Note: 26.
 	db 62	; Short wait: 1.
 
-	db 0	; Note: 24.
-	db 62	; Short wait: 1.
-
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track5
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 31	; Note: 55.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 0	; Note: 24.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 128	; Note: 24.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track6
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 40	; Note: 64.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 31	; Note: 55.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 40	; Note: 64.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track7
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 38	; Note: 62.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 28	; Note: 52.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 2	; Note: 26.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 31	; Note: 55.
 	db 62	; Short wait: 1.
 
 	db 132	; Note: 28.
 	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 128	; Note: 24.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track8
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 28	; Note: 52.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 36	; Note: 60.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 43	; Note: 67.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 173	; Note: 69.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 45	; Note: 69.
-	db 62	; Short wait: 1.
-
-	db 130	; Note: 26.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 0	; Note: 24.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track9
-	db 130	; Note: 26.
-	db 2	; New instrument: 1.
-	db 61, 4	; Long wait: 5.
-
-	db 0	; Note: 24.
-	db 61, 4	; Long wait: 5.
-
-	db 63, 21	; Escaped note: 21.
-	db 190	; Short wait: 3.
-
-	db 63, 16	; Escaped note: 16.
-	db 190	; Short wait: 3.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 61, 32	; Long wait: 33.
-
-
-intro_screen_Subsong0_Track10
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 173	; Note: 69.
-	db 6	; New instrument: 3.
-	db 40	; Note: 64.
-	db 45	; Note: 69.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 38	; Note: 62.
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 33	; Note: 57.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 38	; Note: 62.
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 31	; Note: 55.
-	db 33	; Note: 57.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 38	; Note: 62.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 0	; Note: 24.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 33	; Note: 57.
-	db 28	; Note: 52.
-	db 62	; Short wait: 1.
-
-	db 128	; Note: 24.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 33	; Note: 57.
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 164	; Note: 60.
-	db 6	; New instrument: 3.
-	db 33	; Note: 57.
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track11
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 31	; Note: 55.
-	db 26	; Note: 50.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 31	; Note: 55.
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 36	; Note: 60.
-	db 31	; Note: 55.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 159	; Note: 55.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 36	; Note: 60.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 38	; Note: 62.
-	db 45	; Note: 69.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 171	; Note: 67.
-	db 6	; New instrument: 3.
-	db 40	; Note: 64.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 191, 72	; Escaped note: 72.
-	db 6	; New instrument: 3.
-	db 43	; Note: 67.
-	db 45	; Note: 69.
-	db 62	; Short wait: 1.
-
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 43	; Note: 67.
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track12
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 191, 72	; Escaped note: 72.
-	db 6	; New instrument: 3.
-	db 63, 74	; Escaped note: 74.
-	db 63, 76	; Escaped note: 76.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 173	; Note: 69.
-	db 6	; New instrument: 3.
-	db 43	; Note: 67.
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 19	; Escaped note: 19.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 43	; Note: 67.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 191, 72	; Escaped note: 72.
-	db 6	; New instrument: 3.
-	db 45	; Note: 69.
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 173	; Note: 69.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 191, 79	; Escaped note: 79.
-	db 6	; New instrument: 3.
-	db 63, 76	; Escaped note: 76.
-	db 63, 74	; Escaped note: 74.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 191, 76	; Escaped note: 76.
-	db 6	; New instrument: 3.
-	db 63, 79	; Escaped note: 79.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
 	db 2	; Note: 26.
-	db 62	; Short wait: 1.
+	db 190	; Short wait: 3.
 
-	db 191, 81	; Escaped note: 81.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
+	db 0	; Note: 24.
+	db 190	; Short wait: 3.
 
-	db 63, 79	; Escaped note: 79.
-	db 62	; Short wait: 1.
-
-	db 132	; Note: 28.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 191, 76	; Escaped note: 76.
-	db 6	; New instrument: 3.
-	db 63, 79	; Escaped note: 79.
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 191, 81	; Escaped note: 81.
-	db 6	; New instrument: 3.
-	db 63, 79	; Escaped note: 79.
-	db 128	; Note: 24.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-
-intro_screen_Subsong0_Track13
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 38	; Note: 62.
-	db 33	; Note: 57.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 31	; Note: 55.
-	db 191, 16	; Escaped note: 16.
-	db 2	; New instrument: 1.
+	db 0	; Note: 24.
 	db 62	; Short wait: 1.
 
 	db 63, 19	; Escaped note: 19.
 	db 62	; Short wait: 1.
 
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
-	db 33	; Note: 57.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 168	; Note: 64.
-	db 6	; New instrument: 3.
-	db 62	; Short wait: 1.
-
 	db 135	; Note: 31.
 	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
+	db 190	; Short wait: 3.
 
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 20	; Escaped note: 20.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 166	; Note: 62.
-	db 6	; New instrument: 3.
-	db 33	; Note: 57.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 21	; Escaped note: 21.
-	db 62	; Short wait: 1.
-
-	db 154	; Note: 50.
-	db 6	; New instrument: 3.
-	db 28	; Note: 52.
-	db 31	; Note: 55.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 161	; Note: 57.
-	db 6	; New instrument: 3.
-	db 31	; Note: 55.
-	db 191, 21	; Escaped note: 21.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 63, 16	; Escaped note: 16.
-	db 62	; Short wait: 1.
-
-	db 156	; Note: 52.
-	db 6	; New instrument: 3.
-	db 26	; Note: 50.
-	db 28	; Note: 52.
-	db 62	; Short wait: 1.
-
-	db 130	; Note: 26.
-	db 2	; New instrument: 1.
-	db 62	; Short wait: 1.
-
-	db 0	; Note: 24.
-	db 62	; Short wait: 1.
-
-	db 135	; Note: 31.
-	db 4	; New instrument: 2.
-	db 62	; Short wait: 1.
-
-	db 7	; Note: 31.
-	db 62	; Short wait: 1.
-
-	db 191, 19	; Escaped note: 19.
+	db 191, 16	; Escaped note: 16.
 	db 2	; New instrument: 1.
 	db 62	; Short wait: 1.
 

@@ -226,7 +226,7 @@ start:
     ld hl, 0xe008           ; sound on
 	ld (hl), 0x01
 
-    ld hl, intro_song
+    ld hl, game_song
     xor a
     call PLY_LW_Init
 
@@ -323,14 +323,18 @@ incbin "data/playfield/ScreenCharacterData_Layer 0_Frame_1.bin"
 incbin "data/playfield/ScreenColorData_Layer 0_Frame_1.bin"
 
 PLY_CFG_ConfigurationIsPresent = 1
+PLY_CFG_UseInstrumentLoopTo = 1
 PLY_CFG_NoSoftNoHard = 1
 PLY_CFG_SoftOnly = 1
 PLY_CFG_SoftOnly_SoftwareArpeggio = 1
+PLY_CFG_SoftOnly_SoftwarePitch = 1
 gameover_song: 
 include "data/gameover_song.asm"
 success_song:
 include "data/success_song.asm"
 intro_song:
 include "data/intro_screen.asm"
+game_song:
+include "data/music.asm"
 include "arkos/PlayerLightweight_SHARPMZ700.asm"
 

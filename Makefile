@@ -8,7 +8,7 @@ BIN_NAME = UP-22
 CCFLAGS = -W -Wall
 RASMFLAGS =
 
-ALL = convert up-22.bin up-22.m12
+ALL = convert up-xmas22.bin up-xmas22.m12
 
 all: $(ALL)
 

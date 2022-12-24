@@ -10,7 +10,8 @@
 ; If no configuration is used, the player will use default values (full code used).
 
 	PLY_CFG_ConfigurationIsPresent = 1
+	PLY_CFG_UseInstrumentLoopTo = 1
 	PLY_CFG_NoSoftNoHard = 1
 	PLY_CFG_SoftOnly = 1
-	PLY_CFG_SoftOnly_Noise = 1
 	PLY_CFG_SoftOnly_SoftwareArpeggio = 1
+	PLY_CFG_SoftOnly_SoftwarePitch = 1
